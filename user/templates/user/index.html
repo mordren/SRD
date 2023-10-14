@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main %}
+    <br/>
+    <div class="row">
+        <div class="col-5">
+            <a href="{% url 'listSem-view' 'SV' %}">Análise Crítica de Processos SV</a>
+            <br/>
+            <a href="{% url 'listSem-view' 'OIVA' %}">Análise Crítica de Processos OIVA</a>
+            <br/>
+            <a href="{% url 'listSem-view' 'PP' %}">Análise Crítica de Processos PP</a>
+            <br/>
+            <a href="{% url 'listCompra-view' %}">Formulários de compras</a>
+        </div>       
+    </div>       
+{% endblock %}

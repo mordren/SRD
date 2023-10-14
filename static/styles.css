@@ -1,0 +1,121 @@
+#id_OS{
+    width: 20%;
+    margin-bottom: 1%;
+}
+.container{
+    font-size: 16px;
+}
+
+input [type="checkbox"]{
+    size: 50px;
+}
+
+.form-control{
+    width: 100%;
+    font: 13px;
+}
+
+#lugarPracolar{
+    font-size: 13px;
+}
+
+.fa-solid, .fas{
+    font-size: 30px
+}
+
+.fa-solid:hover {
+    cursor: pointer;
+}
+
+#tableListSemana {
+    font-size: 16px;
+}
+
+.form-signin{
+    border: 2px;
+}
+
+.navbar {
+    background-color: #00212f;
+}
+
+form[name="formCompras"] {
+    width: 100%;
+}
+
+.table-title{
+    margin-top: 2%;
+    border-radius: 3px 3px 0 0;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.btn-new {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%); 
+    float: right;
+    display: inline-block;
+    height: 40px;
+    font-weight: bold;
+    font-size: 15px;
+    border-radius: 60px;
+    color: #fff;
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-new:hover{
+    background-color: #138496;
+    border-color: #138496;
+    color: #fff;
+}
+
+.delete-icon{
+    font-size: 20px;
+    color: red;
+}
+
+.delete-icon:hover{
+    border-color: red;
+    border-width: medium;
+    box-sizing: content-box;
+    top: 0;
+    font-size: 22px;
+    opacity: 0.5;
+    left: 0;
+    transition: 300ms;
+}
+
+.delete-icon:hover::after{
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+.personal_icons{
+    font-size: 20px;
+    color: #17a2b8;
+}
+
+.personal_icons:hover{
+    color: #138496;
+}
+
+#id_observacoes{
+    resize: none;
+}
+
+.update_icon{
+    font-size: 15px;    
+}
+
+nav {
+    color: #fff
+}
+
+.cliente{
+    flex: left;
+}
+
+#lugarPracolar {
+    width: 100%;
+}

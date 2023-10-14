@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Criar Relatórios{% endblock%}
+
+{% block main %}    
+    <br/>
+    <div class="row">
+        <div class="col-12">        
+            <h3>Selecione o cliente ou crie um novo</h3>
+            <form action="" name="formRelatorio" method="post"  enctype="multipart/form-data">
+                {% csrf_token %}        
+                <div class="col-7">
+                    <input type="text" autocomplete="off" required class="form-control" 
+                        id="cliente" name="cliente" list="clientes" placeholder="Digite o nome/razão social" 
+                        value="{{ cliente.nome_completo }}" />
+                    <datalist id="clientes">
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.nome_completo }}"></option>
+                        {% endfor %}
+                    </datalist>
+                    <br/>                    
+                </div>   
+                <input type="submit" class="btn btn-info" required="required" value="Próximo"/>               
+            </form>            
+        </div>
+    </div>    
+{% endblock %}

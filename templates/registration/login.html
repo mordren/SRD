@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Página de Login {% endblock%}
+{% block main %}
+    {% if messages %}
+        {%for message in messages %}
+            <div class="alert {{ message.tags }} m-2" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <link rel="stylesheet" href="{% static 'login_style.css' %}"/>
+    <div class="login-page">
+    <div class="form">
+        <form class="login-form" action="" method="POST">
+        {% csrf_token %}
+        <input type="text" name="username" placeholder="Usuário"/>
+        <input type="password" name="password" placeholder="Senha"/>
+        <button>Entrar</button>     
+        </form>
+    </div>
+    </div>
+{% endblock %}
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}

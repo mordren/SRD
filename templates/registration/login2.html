@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} Página de Login {% endblock%}
+{% block main %}
+    
+    <div class='form-signin text-center'>        
+        <form method="POST" class="form-signin">
+            {% csrf_token %}
+            <br/><br/>
+            <input type="text" placeholder="Usuário" name="username">
+            <br/><br/>
+            <input type="password" placeholder="Senha" name="password">
+            <br/><br/>
+            <input type="submit" value="Entrar">       
+        </form>   
+    </div>    
+{% endblock %}
+{% block footer %}
+    {% include 'footer.html' %}
+{% endblock %}

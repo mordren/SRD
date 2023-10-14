@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Criar Relatórios{% endblock%}
+
+{% block main %}    
+    <div class="row">
+        <div class="col-12">        
+            <h3>Selecione o cliente ou crie um novo</h3>
+            <form action="" name="formRelatorio" method="post"  enctype="multipart/form-data">
+                {% csrf_token %}        
+                <div class="col-7">
+                    <input type="text" autocomplete="off" required class="form-control" 
+                        id="cliente" name="cliente" placeholder="Digite o nome/razão social" 
+                        value="{{ cliente.nome_completo }}" />              
+                </div>   
+                <br/>
+                <div class='col-7'>
+                    <input type="text" class="form-control" id="CNPJ" name="CNPJ" placeholder='CNPJ' value="{{ cliente.CNPJ }}"><br/>
+                    <input type="text" class="form-control" id="placa" name="placa" list="placas" autocomplete="off" placeholder='Placa Veículo'>
+                    <datalist id="placas">
+                        {% for veiculo in veiculos %}
+                            <option value="{{ veiculo.placa }}"></option>
+                        {% endfor %}
+                    </datalist>
+                    <br/>               
+                    <input type="number" class="form-control" id="compartimento" name="compartimento" placeholder='Nº Compartimentos' value="{{ cliente.CNPJ }}"><br/>
+                </div>               
+                <div class='col-7'>
+                    <input type="submit" class="btn btn-info" required="required" value="Próximo"/>
+                </div>
+            </form>            
+        </div>
+    </div>    
+{% endblock %}

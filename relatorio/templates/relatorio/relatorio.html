@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load bootstrap %}
+{% load static %}
+
+
+
+{% block title %}Cadastrar Relatório{% endblock%}
+
+{% block main %}    
+<script src="{% static 'scripts_relatorio.js' %}"></script>
+    <br/>
+    <form action="" name="formRelatorio" method="post"  enctype="multipart/form-data">
+    <div class="content">
+        <div class="row">
+           <div class="col-12">
+                <input hidden class="hidden" id="{{ id }}">
+                <h3>Descontaminação Nº {{ id }}</h3>
+                    {% csrf_token %}
+                    <h5>Veículo placa: {{ veiculo.placa }}</h5>
+                    <label>Finalidade da Descontaminacao:</label><br/>
+                    <select name="selTipoDescontaminacao" class="form-control" required>           
+                        {% for tipo in tipo_descontaminacao %}      
+                            <option value="{{tipo.0}}">{{tipo.1}}</option>             
+                        {%endfor%}    
+                    </select>
+                    <label>Processo aplicado Descontaminacao:</label><br/>
+                    <select name="selTipoProcesso" class="form-control" required>           
+                        {% for processo in processo_descontaminacao %}      
+                            <option value="{{processo.0}}">{{processo.1}}</option>             
+                        {%endfor%}    
+                    </select>
+                    <label>Horas validade Descontaminação</label><br/>
+                    <input name="validade" type="number" class="form-control" class="input input" value='24' required />
+                    <label>Processo aplicado Descontaminacao:</label><br/>
+                    <select name="selTipoEquipamento" class="form-control" required>           
+                        {% for tipo in tipo_equipamento %}      
+                            <option value="{{tipo.0}}">{{tipo.1}}</option>             
+                        {%endfor%}    
+                    </select>
+                    <br/>
+            </div>
+        </div>
+        <div class="row" id="lugarPracolar">
+            <div class="col" id="formInteiro1">
+                <div class="row">
+                    <h6 id="titulo1">Compartimento: 1</h6>                   
+                </div>
+                <div class="row">
+                    <label for="volume" class="form-label">Volume</label>
+                    <input type="number" class="form-control" name="volume1" id="volume1" onfocusout="updateVolume()" required />
+                </div>
+                <div class="row combustivel-form">
+                    <p>Combustível</p>
+                    <input type="text" class="form-control" name="combustivel1" id="combustivel1" list="produtos" onfocusout="updateONU()" required />
+                    <datalist id="produtos">
+                        {% for prodt in produtos %}
+                            <option name="{{ prodt.produto }}" id="{{ prodt.numero_onu }}" value="{{ prodt.produto }}"></option>
+                        {% endfor %}
+                    </datalist>
+                </div>
+                <div class="row">
+                    <label for="ONU" class="form-label">Número onu</label>
+                    <input type="number" class="form-control" name="ONU1" id="ONU1" required />
+                </div>
+                <div class="row">
+                    <label for="classeRisco" class="form-label">Classe de Risco</label>
+                    <input type="number" class="form-control" name="classeRisco1" id="classeRisco1" value="3" required />
+                </div>
+                <div class="row">
+                    <label for="pressaoVapor" class="form-label">Pressão de Vapor</label>
+                    <input type="text" class="form-control" name="pressaoVapor1" id="pressaoVapor1" value="NA" required />
+                </div>                
+                <div class="row">
+                    <label for="tempo1" class="form-label">Tempo</label>
+                    <input type="number" class="form-control" name="tempo1"id="tempo1" required />
+                </div>
+                <div class="row">
+                    <label for="massaVapor" class="form-label">Massa de Vapor</label>
+                    <input type="text" class="form-control" name="massaVapor1"id="massaVapor1" value="NA" required />
+                </div>
+                <div class="row">
+                    <label for="volumeAr" class="form-label">Volume de Ar</label>
+                    <input type="number" class="form-control" name="volumeAr1" id="volumeAr1" required />
+                </div>
+                <div class="row">
+                    <label for="neutralizante" class="form-label">Neutralizante</label>
+                    <input type="text" class="form-control" name="neutralizante1" id="neutralizante1" value="NA" required />
+                </div>
+            </div>
+        </div>
+        <br/>
+        <input type="submit" class="btn btn-info" required="required" value="Salvar"/>
+    </div>
+    </form>
+{% endblock %}

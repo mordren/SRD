@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% load bootstrap %}
+{% load static %}
+
+
+
+{% block title %}Cadastrar Relatório{% endblock%}
+
+{% block main %}    
+<!-- <script src="{% static 'scripts_relatorio.js' %}"></script> -->
+    <br/>
+    <form action="" name="formRelatorio" method="post"  enctype="multipart/form-data">
+    <div class="content">
+        <div class="row">
+           <div class="col-12">
+                <input hidden class="hidden" id="{{ id }}">
+                <h3>Descontaminação Nº {{ id }}</h3>
+                    {% csrf_token %}
+                    <h5>Veículo placa: {{ veiculo.placa }}</h5>
+                    <label>Finalidade da Descontaminacao:</label><br/>
+                    <select name="selTipoDescontaminacao" class="form-control" required>           
+                        {% for tipo in tipo_descontaminacao %}      
+                            <option {%if relatorio.finalidade_descontaminacao == tipo.0  %} selected {%endif%} 
+                                value="{{tipo.0}}">{{tipo.1}}</option>             
+                        {%endfor%}    
+                    </select>
+                    <label>Processo aplicado Descontaminacao:</label><br/>
+                    <select name="selTipoProcesso" class="form-control" required>           
+                        {% for processo in processo_descontaminacao %}      
+                            <option {%if relatorio.processo_descontaminacao == processo.0  %} selected {%endif%}  
+                                value="{{processo.0}}">{{processo.1}}</option>             
+                        {%endfor%}    
+                    </select>
+                    <label>Horas validade Descontaminação</label><br/>
+                    <input name="validade" type="number" class="form-control" class="input input" value="{{ relatorio.prazo_validade }}" required />
+                    <label>Processo aplicado Descontaminacao:</label><br/>
+                    <select name="selTipoEquipamento" class="form-control" required>           
+                        {% for tipo in tipo_equipamento %}      
+                            <option {%if relatorio.tipo_equipamento == tipo.0  %} selected {%endif%} 
+                                value="{{tipo.0}}">{{tipo.1}}</option>             
+                        {%endfor%}    
+                    </select>
+                    <br/>
+            </div>
+        </div>
+        <div class="row" id="lugarPracolar">
+        {% for dados in compartimentos %}                    
+                <div class="col" id="formInteiro{{ dados.numero_compartimento }}">
+                    <div class="row">
+                        <h6 id="titulo1">Compartimento: {{ dados.numero_compartimento }}</h6>                   
+                    </div>
+                    <div class="row">
+                        <label for="volume" class="form-label">Volume</label>
+                        <input type="number" class="form-control" 
+                            name="volume{{ dados.numero_compartimento }}" 
+                            id="volume{{ dados.numero_compartimento }}" 
+                            value="{{ dados.volume }}"
+                            onfocusout="updateVolume({{ dados.numero_compartimento }})" required />
+                    </div>
+                    
+                    <div class="row combustivel-form">
+                        <p>Combustível</p>
+                        <input type="text" class="form-control" name="combustivel{{ dados.numero_compartimento }}"
+                             id="combustivel{{ dados.numero_compartimento }}"
+                             list="produtos" onfocusout="updateONU({{ dados.numero_compartimento }})" required  
+                             value="{{ dados.ultimo_produto_transportado }}"/>
+                        <datalist id="produtos">
+                            {% for prodt in produtos %}
+                                <option name="{{ prodt.produto }}" id="{{ prodt.numero_onu }}" value="{{ prodt.produto }}"></option>
+                            {% endfor %}
+                        </datalist>
+                    </div>
+                    <div class="row">
+                        <label for="ONU{{ dados.numero_compartimento }}" class="form-label">Número onu</label>
+                        <input type="number" class="form-control" name="ONU{{ dados.numero_compartimento }}" 
+                            id="ONU{{ dados.numero_compartimento }}" value="{{ dados.numeroONU }}" required />
+                    </div>
+                    <div class="row">
+                        <label for="classeRisco{{ dados.numero_compartimento }}" class="form-label">Classe de Risco</label>
+                        <input type="number" class="form-control" name="classeRisco{{ dados.numero_compartimento }}" 
+                            id="classeRisco{{ dados.numero_compartimento }}" value="{{ dados.classe_risco }}" required />
+                    </div>
+                    <div class="row">
+                        <label for="pressaoVapor{{ dados.numero_compartimento }}" class="form-label">Pressão de Vapor</label>
+                        <input type="text" class="form-control" name="pressaoVapor{{ dados.numero_compartimento }}" 
+                            id="pressaoVapor{{ dados.numero_compartimento }}" value="{{ dados.pressao_vapor }}" required />
+                    </div>                
+                    <div class="row">
+                        <label for="tempo{{ dados.numero_compartimento }}" class="form-label">Tempo</label>
+                        <input type="number" class="form-control" name="tempo{{ dados.numero_compartimento }}" 
+                            id="tempo{{ dados.numero_compartimento }}" value="{{ dados.tempo }}" required />
+                    </div>
+                    <div class="row">
+                        <label for="massaVapor{{ dados.numero_compartimento }}" class="form-label">Massa de Vapor</label>
+                        <input type="text" class="form-control" name="massaVapor{{ dados.numero_compartimento }}" 
+                            id="massaVapor{{ dados.numero_compartimento }}" value="{{dados.massa_vapor}}" required />
+                    </div>
+                    <div class="row">
+                        <label for="volumeAr{{ dados.numero_compartimento }}" class="form-label">Volume de Ar</label>
+                        <input type="number" class="form-control" name="volumeAr{{ dados.numero_compartimento }}" 
+                            id="volumeAr{{ dados.numero_compartimento }}" value="{{ dados.volumeAr }}" required />
+                    </div>
+                    <div class="row">
+                        <label for="neutralizante{{ dados.numero_compartimento }}" class="form-label">Neutralizante</label>
+                        <input type="text" class="form-control" name="neutralizante{{ dados.numero_compartimento }}"
+                             id="neutralizante{{ dados.numero_compartimento }}" value="{{ dados.neutralizante }}" required />
+                    </div>
+                </div>            
+        {% endfor %}
+        </div>
+        <br/>
+        <input type="submit" class="btn btn-info" required="required" value="Salvar"/>
+    </div>
+    </form>
+{% endblock %}
