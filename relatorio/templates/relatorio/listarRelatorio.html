@@ -26,6 +26,7 @@
                 <th scope="col">Nº Relatório</th>                      
                 <th scope="col">Data</th>
                 <th scope="col">Placa</th>                      
+                <th scope="col">Editar</th>                      
                 <th scope="col">Excluir</th>                      
                 <th scope="col">Imprimir</th>                      
               </tr>
@@ -35,7 +36,11 @@
             <tr>
               <th scope="row">{{ relatorio.id }}</th>                    
               <td>{{relatorio.data|date:"d/m/y"}}</td>
-              <td>{{ relatorio.veiculo.placa }}</td>                    
+              <td>{{ relatorio.veiculo.placa }}</td>
+              <td><a href="{% url 'relatorio-view' relatorio.id %}">
+                    <i class="fas fa-sync personal_icons"></i>         
+                  </a>
+              </td>           
               <td><a href="{% url 'delRelatorio-view' relatorio.id %}"
                 onclick="return confirm('Você tem certeza que quer deletar ?')">
                 <i class="fa-solid fa-trash delete-icon"></i></td>

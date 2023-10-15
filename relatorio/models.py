@@ -44,7 +44,7 @@ class RelatorioDescontaminacao(models.Model):
     #cliente = models.ForeignKey(Cliente, on_delete=models.DO_NOTHING)
     descontaminacao_choices = (('1','Inspeção'),('2','Manunteção'),('3','Reparo'),('4','Reforma'),('5','Verificao metrológica'))
     processo_descontaminacao_choices = (('1','Com ventilação forçada'),('2','Com Aplicação de Vapor'),('3','Com exaustão'),('4','Com lavagem química'),('5','Com lavagem com água'))
-    tipo_equipamento_choices = (('TIPO A', 'TIPO A'),('TIPO B', 'TIPO B'))
+    tipo_equipamento_choices = (('1', 'Caminhão'),('2', 'Semirreboque'),('3','Rebocado'))
     
     processo_descontaminacao = models.CharField(null=True, help_text = 'Processo de Descontaminação', choices=processo_descontaminacao_choices, max_length=100)
     finalidade_descontaminacao = models.CharField(null=True, help_text='Finalidade Descontaminação',max_length=50, choices=descontaminacao_choices, default='1')

@@ -22,8 +22,9 @@ class relatorioView(View):
             #EDIT
             data['compartimentos'] = DadosCompartimento.objects.filter(relatorio=data['relatorio'])
             return render(request, 'relatorio/editarRelatorio.html', data)
-        
         else:
+            #verifico os números de compartimento e mando para instanciar o FORM
+            data['range'] = range(1,data['veiculo'].numero_compartimentos+1)
             return render(request, 'relatorio/relatorio.html', data)
            
         
@@ -125,7 +126,8 @@ def listarRelatorio(request):
     return render(request, 'relatorio/listarRelatorio.html', data)
 
 def delRelatorio(request, id):
-    RelatorioDescontaminacao.objects.delete(id=id)
+    rel = RelatorioDescontaminacao.objects.get(id=id)
+    rel.delete()
     data = {}
     data['relatorios'] = RelatorioDescontaminacao.objects.all()
     return render(request, 'relatorio/listarRelatorio.html', data)
@@ -136,6 +138,3 @@ def imprimir(request, id):
     imprimirPDF(buffer, relatorio)
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=False, filename='teste.pdf')
-#comentário para commit
-dasdasdas
-

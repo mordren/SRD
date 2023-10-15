@@ -3,8 +3,6 @@
 {% load bootstrap %}
 {% load static %}
 
-
-
 {% block title %}Cadastrar Relatório{% endblock%}
 
 {% block main %}    
@@ -64,7 +62,7 @@
                         <input type="text" class="form-control" name="combustivel{{ dados.numero_compartimento }}"
                              id="combustivel{{ dados.numero_compartimento }}"
                              list="produtos" onfocusout="updateONU({{ dados.numero_compartimento }})" required  
-                             value="{{ dados.ultimo_produto_transportado }}"/>
+                             value="{{ dados.ultimo_produto_transportado }}" autocomplete="off"/>
                         <datalist id="produtos">
                             {% for prodt in produtos %}
                                 <option name="{{ prodt.produto }}" id="{{ prodt.numero_onu }}" value="{{ prodt.produto }}"></option>

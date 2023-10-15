@@ -41,18 +41,20 @@
                     <br/>
             </div>
         </div>
+        
         <div class="row" id="lugarPracolar">
-            <div class="col" id="formInteiro1">
+            {% for i in range %}
+            <div class="col" id="formInteiro{{ i }}">
                 <div class="row">
-                    <h6 id="titulo1">Compartimento: 1</h6>                   
+                    <h6 id="titulo{{ i }}">Compartimento: {{ i }}</h6>                   
                 </div>
                 <div class="row">
                     <label for="volume" class="form-label">Volume</label>
-                    <input type="number" class="form-control" name="volume1" id="volume1" onfocusout="updateVolume()" required />
+                    <input type="number" class="form-control" name="volume{{ i }}" id="volume{{ i }}" onfocusout="updateVolume({{ i }})" required />
                 </div>
                 <div class="row combustivel-form">
                     <p>Combustível</p>
-                    <input type="text" class="form-control" name="combustivel1" id="combustivel1" list="produtos" onfocusout="updateONU()" required />
+                    <input type="text" class="form-control" name="combustivel{{ i }}" id="combustivel{{ i }}" list="produtos" onfocusout="updateONU({{ i }})" required />
                     <datalist id="produtos">
                         {% for prodt in produtos %}
                             <option name="{{ prodt.produto }}" id="{{ prodt.numero_onu }}" value="{{ prodt.produto }}"></option>
@@ -61,35 +63,37 @@
                 </div>
                 <div class="row">
                     <label for="ONU" class="form-label">Número onu</label>
-                    <input type="number" class="form-control" name="ONU1" id="ONU1" required />
+                    <input type="number" class="form-control" name="ONU{{ i }}" id="ONU{{ i }}" required />
                 </div>
                 <div class="row">
                     <label for="classeRisco" class="form-label">Classe de Risco</label>
-                    <input type="number" class="form-control" name="classeRisco1" id="classeRisco1" value="3" required />
+                    <input type="number" class="form-control" name="classeRisco{{ i }}" id="classeRisco{{ i }}" value="3" required />
                 </div>
                 <div class="row">
                     <label for="pressaoVapor" class="form-label">Pressão de Vapor</label>
-                    <input type="text" class="form-control" name="pressaoVapor1" id="pressaoVapor1" value="NA" required />
+                    <input type="text" class="form-control" name="pressaoVapor{{ i }}" id="pressaoVapor{{ i }}" value="NA" required />
                 </div>                
                 <div class="row">
-                    <label for="tempo1" class="form-label">Tempo</label>
-                    <input type="number" class="form-control" name="tempo1"id="tempo1" required />
+                    <label for="tempo{{ i }}" class="form-label">Tempo</label>
+                    <input type="number" class="form-control" name="tempo{{ i }}"id="tempo{{ i }}" required />
                 </div>
                 <div class="row">
                     <label for="massaVapor" class="form-label">Massa de Vapor</label>
-                    <input type="text" class="form-control" name="massaVapor1"id="massaVapor1" value="NA" required />
+                    <input type="text" class="form-control" name="massaVapor{{ i }}" id="massaVapor{{ i }}" value="NA" required />
                 </div>
                 <div class="row">
                     <label for="volumeAr" class="form-label">Volume de Ar</label>
-                    <input type="number" class="form-control" name="volumeAr1" id="volumeAr1" required />
+                    <input type="number" class="form-control" name="volumeAr{{ i }}" id="volumeAr{{ i }}" required />
                 </div>
                 <div class="row">
                     <label for="neutralizante" class="form-label">Neutralizante</label>
-                    <input type="text" class="form-control" name="neutralizante1" id="neutralizante1" value="NA" required />
+                    <input type="text" class="form-control" name="neutralizante{{ i }}" id="neutralizante{{ i }}" value="NA" required />
                 </div>
             </div>
+            {% endfor %}
         </div>
         <br/>
+        
         <input type="submit" class="btn btn-info" required="required" value="Salvar"/>
     </div>
     </form>
