@@ -24,7 +24,7 @@ class ProdutoTransportado(models.Model):
         return self.produto
     
 class Veiculo(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.DO_NOTHING)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     placa = models.CharField(max_length=10)
     numero_compartimentos = models.IntegerField()
     
@@ -39,7 +39,7 @@ class Equipamento(models.Model):
     patrimonio = models.CharField(max_length=5)
     
 class RelatorioDescontaminacao(models.Model):
-    veiculo = models.ForeignKey(Veiculo, on_delete=models.DO_NOTHING)
+    veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
     data = models.DateField(default=date.today, null=True, blank=True)
     #cliente = models.ForeignKey(Cliente, on_delete=models.DO_NOTHING)
     descontaminacao_choices = (('1','Inspeção'),('2','Manunteção'),('3','Reparo'),('4','Reforma'),('5','Verificao metrológica'))
@@ -62,7 +62,7 @@ class RelatorioDescontaminacao(models.Model):
 class DadosCompartimento(models.Model):
     numero_compartimento = models.IntegerField(default=0)   
     volume = models.IntegerField()
-    ultimo_produto_transportado = models.ForeignKey(ProdutoTransportado, verbose_name=("Produto PerigosoTransportado"), on_delete=models.DO_NOTHING)
+    ultimo_produto_transportado = models.ForeignKey(ProdutoTransportado, verbose_name=("Produto Perigoso Transportado"), on_delete=models.DO_NOTHING)
     numeroONU = models.IntegerField()
     classe_risco = models.CharField(max_length=100)
     pressao_vapor = models.CharField(default='NA', max_length=10)
@@ -71,7 +71,7 @@ class DadosCompartimento(models.Model):
     neutralizante = models.CharField(default='NA', max_length=10)
     volumeAr = models.IntegerField()
     neutralizante = models.CharField(max_length=200)
-    relatorio = models.ForeignKey(RelatorioDescontaminacao, on_delete=models.DO_NOTHING)
+    relatorio = models.ForeignKey(RelatorioDescontaminacao, on_delete=models.CASCADE)
     
     def __str__(self):
         return 'Relatório : '+ str(self.relatorio.pk) + ' volume: '+ str(self.numero_compartilhamento) 

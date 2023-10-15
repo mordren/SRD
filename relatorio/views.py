@@ -92,7 +92,8 @@ class atualizarRelatorio(View):
         veiculo = Veiculo.objects.filter(placa=placa).first()
         if not (Veiculo.objects.filter(placa=placa).exists()):
             veiculo = Veiculo.objects.create(placa=placa, cliente=cliente, numero_compartimentos=compatimentos)
-        relatorio = RelatorioDescontaminacao.objects.create(veiculo=veiculo)                
+        
+        relatorio = RelatorioDescontaminacao.objects.create(veiculo=veiculo)
         return redirect('relatorio-view', relatorio.id)
          
 def buscarClientes(request):
@@ -130,7 +131,7 @@ def delRelatorio(request, id):
     rel.delete()
     data = {}
     data['relatorios'] = RelatorioDescontaminacao.objects.all()
-    return render(request, 'relatorio/listarRelatorio.html', data)
+    return redirect('listarRelatorio-view')
 
 def imprimir(request, id):
     relatorio = RelatorioDescontaminacao.objects.get(id=id)

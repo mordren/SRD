@@ -16,7 +16,7 @@ def mp(mm):
 def imprimirPDF(link, relatorio):    
     relatorio = RelatorioDescontaminacao.objects.get(id=relatorio.id)
     media_url = settings.MEDIA_ROOT
-    template = PdfReader(media_url+"\\templates\\template.pdf", decompress=False).getPage(0)
+    template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(0)
 
     template_obj = pagexobj(template)
     
