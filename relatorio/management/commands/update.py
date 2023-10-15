@@ -5,7 +5,7 @@ import pandas as pd
 import csv
 from pathlib import Path
 
-from relatorio.models import ProdutoTransportado
+from relatorio.models import Equipamento, ProdutoTransportado
 
 
 class Command(BaseCommand):
@@ -19,6 +19,9 @@ class Command(BaseCommand):
         with open(BASE_DIR / './static/produtos_transportados.csv', 'r', encoding='utf-8') as arquivo:
             arquivo_csv = csv.reader(arquivo, delimiter=";")
             for linha in arquivo_csv:                
-                ProdutoTransportado.objects.create(produto=linha[0], numero_onu=linha[1])                 
+                ProdutoTransportado.objects.create(produto=linha[0], numero_onu=linha[1]) 
+                
+        Equipamento.objects.create(nome="Oxi", calibracao=datetime.date(2022,8,22), numero_serie='H210911223', patrimonio="MED01")        
+                        
                 
     
