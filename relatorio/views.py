@@ -41,6 +41,7 @@ class relatorioView(View):
                                                               prazo_validade=validade,
                                                               tipo_equipamento=tipo_equipamento)
               
+
         for i in range(0,relatorio.veiculo.numero_compartimentos):
             i = i+1
             num = str(i)
@@ -70,7 +71,7 @@ class CriarRelatorio(View):
     
     def post(self, request):
         cliente = Cliente.objects.filter(nome_completo=request.POST.get('cliente')).first()
-        #veiculo = Viculo.objects.create(placa=placa, cliente=cliente, numero_compartilhamentos=compatimentos)       
+        #veiculo = Viculo.objects.create(placa=placa, cliente=cliente, numero_compartimentos=compatimentos)       
         if cliente == None:           
             cliente = Cliente.objects.create(nome_completo=request.POST.get('cliente'),CNPJ='')
         return redirect('atualizarRelatorio-view', cliente.pk)
@@ -89,8 +90,7 @@ class atualizarRelatorio(View):
         compatimentos = request.POST.get('compartimento')
         veiculo = Veiculo.objects.filter(placa=placa).first()
         if not (Veiculo.objects.filter(placa=placa).exists()):
-            veiculo = Veiculo.objects.create(placa=placa, cliente=cliente, numero_compartilhamentos=compatimentos)
-        
+            veiculo = Veiculo.objects.create(placa=placa, cliente=cliente, numero_compartimentos=compatimentos)
         relatorio = RelatorioDescontaminacao.objects.create(veiculo=veiculo)                
         return redirect('relatorio-view', relatorio.id)
          
@@ -103,7 +103,7 @@ def buscarClientes(request):
 
 def buscarCompartimentos(request, placa):
     numeroCompartimentos = Veiculo.objects.get(placa=placa)
-    return JsonResponse({'num':numeroCompartimentos.numero_compartilhamentos})
+    return JsonResponse({'num':numeroCompartimentos.numero_compartimentos})
 
 def buscarRelatorio(request, id):
     relatorio = RelatorioDescontaminacao.objects.get(id=id)
@@ -136,3 +136,6 @@ def imprimir(request, id):
     imprimirPDF(buffer, relatorio)
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=False, filename='teste.pdf')
+#comentário para commit
+dasdasdas
+
