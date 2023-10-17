@@ -17,12 +17,19 @@
                     {% csrf_token %}
                     <h5>Veículo placa: {{ veiculo.placa }}</h5>
                     <label>Finalidade da Descontaminacao:</label><br/>
-                    <select name="selTipoDescontaminacao" class="form-control" required>           
-                        {% for tipo in tipo_descontaminacao %}      
-                            <option {%if relatorio.finalidade_descontaminacao == tipo.0  %} selected {%endif%} 
-                                value="{{tipo.0}}">{{tipo.1}}</option>             
-                        {%endfor%}    
-                    </select>
+
+                   
+                    <ul>
+                        {% for tipo in tipo_descontaminacao %}   
+                            <input type="checkbox" name="checkbox-{{tipo.0}}" 
+                            {% for exists in existe %}    
+                                {% if exists.finalidade == tipo.0 %}
+                                    checked                                   
+                                {% endif%}
+                            {% endfor %}
+                                > {{tipo.1}}</li>
+                        {%endfor%}
+                    </ul>
                     <label>Processo aplicado Descontaminacao:</label><br/>
                     <select name="selTipoProcesso" class="form-control" required>           
                         {% for processo in processo_descontaminacao %}      

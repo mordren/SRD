@@ -8,4 +8,5 @@ admin.site.register(ProdutoTransportado)
 admin.site.register(DadosCompartimento)
 admin.site.register(Equipamento)
 admin.site.register(Veiculo)
+admin.site.register(Finalidade)
 

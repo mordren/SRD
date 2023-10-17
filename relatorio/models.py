@@ -30,24 +30,30 @@ class Veiculo(models.Model):
     
     def __str__(self):
         return self.placa
-    
-    
+        
 class Equipamento(models.Model):
     nome = models.CharField(max_length=200)
     calibracao = models.DateField()
     numero_serie = models.CharField(max_length=100)
     patrimonio = models.CharField(max_length=5)
+
+class Finalidade(models.Model):
+    finalidade_choices = (('1','Inspeção'),('2','Manutenção'),('3','Reparo'),('4','Reforma'),('5','Verificao metrológica'))
+    finalidade = models.CharField(null=True, help_text='Finalidade Descontaminação',max_length=50, choices=finalidade_choices, default='1')
+    
+    def __str__(self):
+        return self.get_finalidade_display()
     
 class RelatorioDescontaminacao(models.Model):
     veiculo = models.ForeignKey(Veiculo, on_delete=models.CASCADE)
     data = models.DateField(default=date.today, null=True, blank=True)
     #cliente = models.ForeignKey(Cliente, on_delete=models.DO_NOTHING)
-    descontaminacao_choices = (('1','Inspeção'),('2','Manunteção'),('3','Reparo'),('4','Reforma'),('5','Verificao metrológica'))
+    descontaminacao_choices = (('1','Inspeção'),('2','Manutenção'),('3','Reparo'),('4','Reforma'),('5','Verificao metrológica'))
     processo_descontaminacao_choices = (('1','Com ventilação forçada'),('2','Com Aplicação de Vapor'),('3','Com exaustão'),('4','Com lavagem química'),('5','Com lavagem com água'))
     tipo_equipamento_choices = (('1', 'Caminhão'),('2', 'Semirreboque'),('3','Rebocado'))
     
     processo_descontaminacao = models.CharField(null=True, help_text = 'Processo de Descontaminação', choices=processo_descontaminacao_choices, max_length=100)
-    finalidade_descontaminacao = models.CharField(null=True, help_text='Finalidade Descontaminação',max_length=50, choices=descontaminacao_choices, default='1')
+    finalidade_descontaminacao = models.ManyToManyField(Finalidade)
     finalidade_descontaminacao_outros = models.CharField(null=True, max_length=50)
        
     tipo_equipamento = models.CharField(null=True, help_text='Tipo do Equipamento', max_length=10, choices=tipo_equipamento_choices)

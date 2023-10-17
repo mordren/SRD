@@ -3,11 +3,12 @@ from django.shortcuts import render
 from django.views.generic.base import View
 from django.shortcuts import redirect
 from django.http import JsonResponse
-from relatorio.models import Cliente, DadosCompartimento, ProdutoTransportado, RelatorioDescontaminacao, Veiculo
+from relatorio.models import Cliente, DadosCompartimento, Finalidade, ProdutoTransportado, RelatorioDescontaminacao, Veiculo
 from django.forms import model_to_dict
 from relatorio.util.report import imprimirPDF
 from django.http import FileResponse
 
+#manipula a URL: localhost/relatorio/id
 class relatorioView(View):
     def get(self, request, id):
         data = {}       
@@ -21,13 +22,13 @@ class relatorioView(View):
         if (RelatorioDescontaminacao.objects.filter(id=id).first().tipo_equipamento != None):
             #EDIT
             data['compartimentos'] = DadosCompartimento.objects.filter(relatorio=data['relatorio'])
+            data['existe'] = data['relatorio'].finalidade_descontaminacao.all()
             return render(request, 'relatorio/editarRelatorio.html', data)
         else:
             #verifico os números de compartimento e mando para instanciar o FORM
             data['range'] = range(1,data['veiculo'].numero_compartimentos+1)
             return render(request, 'relatorio/relatorio.html', data)
            
-        
     
     def post(self, request, id):
         relatorio = RelatorioDescontaminacao.objects.filter(id=id).first()
@@ -35,11 +36,19 @@ class relatorioView(View):
         finalidade = request.POST.get('selTipoDescontaminacao')
         processo = request.POST.get('selTipoProcesso')
         validade = request.POST.get('validade')
-        tipo_equipamento = request.POST.get('selTipoEquipamento')
+        tipo_equipamento = request.POST['selTipoEquipamento']
         
-        RelatorioDescontaminacao.objects.filter(id=id).update(finalidade_descontaminacao=finalidade, 
-                                                              processo_descontaminacao=processo,
-                                                              prazo_validade=validade,
+        relatorio.finalidade_descontaminacao.clear()
+                
+        # A finalidade é uma chave de manytomany para ser várias opções;
+        for tipo in RelatorioDescontaminacao.descontaminacao_choices:
+            tipo_resposta = request.POST.get('checkbox-'+tipo[0])
+            if tipo_resposta == "on":
+                finalidade = Finalidade.objects.filter(finalidade = tipo[0]).first()
+                relatorio.finalidade_descontaminacao.add(finalidade)
+                        
+        RelatorioDescontaminacao.objects.filter(id=id).update(processo_descontaminacao=processo,
+                                                              prazo_validade=validade, 
                                                               tipo_equipamento=tipo_equipamento)
               
 

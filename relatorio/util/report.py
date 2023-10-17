@@ -39,16 +39,20 @@ def imprimirPDF(link, relatorio):
     canvas.drawString(mp(44),mp(215.6), str(relatorio.get_tipo_equipamento_display()))
     canvas.drawString(mp(80),mp(212.5), relatorio.veiculo.placa)
     
-    if(relatorio.finalidade_descontaminacao == "1"):
-        canvas.drawString(mp(35),mp(199.5), "X")
-    elif(relatorio.finalidade_descontaminacao == "2"):
-        canvas.drawString(mp(71),mp(199.5), "X")
-    elif(relatorio.finalidade_descontaminacao == "3"):
-        canvas.drawString(mp(106),mp(199.5), "X")
-    elif(relatorio.finalidade_descontaminacao == "4"):
-        canvas.drawString(mp(142),mp(199.5), "X")
-    elif(relatorio.finalidade_descontaminacao == "5"):
-        canvas.drawString(mp(177.5),mp(199.5), "X")
+    finalidades = relatorio.finalidade_descontaminacao.all()
+    
+    for finalidade in finalidades:       
+      
+        if(finalidade.finalidade == "1"):
+            canvas.drawString(mp(35),mp(199.5), "X")
+        elif(finalidade.finalidade == "2"):
+            canvas.drawString(mp(71),mp(199.5), "X")
+        elif(finalidade.finalidade == "3"):
+            canvas.drawString(mp(106),mp(199.5), "X")
+        elif(finalidade.finalidade == "4"):
+            canvas.drawString(mp(142),mp(199.5), "X")
+        elif(finalidade.finalidade == "5"):
+            canvas.drawString(mp(177.5),mp(199.5), "X")
     
     canvas.setFontSize(11)
     canvas.drawString(mp(62),mp(189.5), str(relatorio.prazo_validade))
@@ -74,17 +78,6 @@ def imprimirPDF(link, relatorio):
     linha = mp(157)
     expessuraLinha = mp(5)
     l = 0
-    '''
-    canvas.drawString(mp(43),mp(157), "5")
-    canvas.drawString(mp(43),mp(151), "GASOLINA")
-    canvas.drawString(mp(43),mp(145), "1202")
-    canvas.drawString(mp(43),mp(141), "3")
-    canvas.drawString(mp(43),mp(136), "NA")
-    canvas.drawString(mp(43),mp(130), "60")
-    canvas.drawString(mp(43),mp(126), "NA")
-    canvas.drawString(mp(43),mp(122), "8400")
-    canvas.drawString(mp(43),mp(118),"NA")
-    '''
     
     for compartimento in compartimentos:
         canvas.drawString(coluna+mp(7.5),mp(157), str(compartimento.volume))
