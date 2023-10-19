@@ -79,24 +79,24 @@ WSGI_APPLICATION = 'sistemaRelatorio.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'opahqauu',
-        'USER': 'opahqauu',
-        'PASSWORD': 'OYdDqo_b5N5WSI7s0roeCCPA-bunqd16',
+        'NAME': 'aadfaydn',
+        'USER': 'aadfaydn',
+        'PASSWORD': 'K8Svu7_yI3YGYtn0vZplCrXCx9y3IG71',
         'HOST' : 'motty.db.elephantsql.com'        
     }
 }
-'''
 
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

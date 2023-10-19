@@ -53,7 +53,7 @@ class RelatorioDescontaminacao(models.Model):
     tipo_equipamento_choices = (('1', 'Caminhão'),('2', 'Semirreboque'),('3','Rebocado'))
     
     processo_descontaminacao = models.CharField(null=True, help_text = 'Processo de Descontaminação', choices=processo_descontaminacao_choices, max_length=100)
-    finalidade_descontaminacao = models.ManyToManyField(Finalidade)
+    finalidade_descontaminacao = models.ManyToManyField(Finalidade, null=True, blank=True)
     finalidade_descontaminacao_outros = models.CharField(null=True, max_length=50)
        
     tipo_equipamento = models.CharField(null=True, help_text='Tipo do Equipamento', max_length=10, choices=tipo_equipamento_choices)
@@ -80,4 +80,4 @@ class DadosCompartimento(models.Model):
     relatorio = models.ForeignKey(RelatorioDescontaminacao, on_delete=models.CASCADE)
     
     def __str__(self):
-        return 'Relatório : '+ str(self.relatorio.pk) + ' volume: '+ str(self.numero_compartilhamento) 
+        return 'Relatório : '+ str(self.relatorio.pk) + ' volume: '+ str(self.numero_compartimento) 

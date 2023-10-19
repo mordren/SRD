@@ -17,8 +17,6 @@
                     {% csrf_token %}
                     <h5>Veículo placa: {{ veiculo.placa }}</h5>
                     <label>Finalidade da Descontaminacao:</label><br/>
-
-                   
                     <ul>
                         {% for tipo in tipo_descontaminacao %}   
                             <input type="checkbox" name="checkbox-{{tipo.0}}" 

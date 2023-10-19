@@ -59,10 +59,10 @@ def imprimirPDF(link, relatorio):
     
     canvas.setFontSize(8)
     
-    if(relatorio.processo_descontaminacao == "1"):
-        canvas.drawString(mp(21.5),mp(183.2), "X")
-    elif(relatorio.processo_descontaminacao == "2"):
-        canvas.drawString(mp(21.5),mp(179.6), "X")
+    if(relatorio.processo_descontaminacao == "2"):
+        canvas.drawString(mp(21.5),mp(183.6), "X")
+    elif(relatorio.processo_descontaminacao == "1"):
+        canvas.drawString(mp(21.5),mp(179.9), "X")
     elif(relatorio.processo_descontaminacao == "3"):
         canvas.drawString(mp(21.5),mp(176.2), "X")
     elif(relatorio.processo_descontaminacao == "4"):
