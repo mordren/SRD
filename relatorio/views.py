@@ -37,9 +37,12 @@ class relatorioView(View):
         processo = request.POST.get('selTipoProcesso')
         validade = request.POST.get('validade')
         tipo_equipamento = request.POST['selTipoEquipamento']
+        placa = request.POST['placa']
         
         relatorio.finalidade_descontaminacao.clear()
                 
+        Veiculo.objects.filter(placa=relatorio.veiculo.placa).update(placa=placa)
+        
         # A finalidade é uma chave de manytomany para ser várias opções;
         for tipo in RelatorioDescontaminacao.descontaminacao_choices:
             tipo_resposta = request.POST.get('checkbox-'+tipo[0])
@@ -97,10 +100,11 @@ class atualizarRelatorio(View):
         Cliente.objects.filter(id=id).update(CNPJ=CNPJ)
         cliente = Cliente.objects.get(id=id)
         placa = request.POST.get('placa')            
+        equipamento = request.POST.get('numeroEquipamento')            
         compatimentos = request.POST.get('compartimento')
         veiculo = Veiculo.objects.filter(placa=placa).first()
         if not (Veiculo.objects.filter(placa=placa).exists()):
-            veiculo = Veiculo.objects.create(placa=placa, cliente=cliente, numero_compartimentos=compatimentos)
+            veiculo = Veiculo.objects.create(placa=placa, cliente=cliente, numero_compartimentos=compatimentos, numeroEquipamento=equipamento)
         
         relatorio = RelatorioDescontaminacao.objects.create(veiculo=veiculo)
         return redirect('relatorio-view', relatorio.id)

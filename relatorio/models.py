@@ -27,6 +27,7 @@ class Veiculo(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     placa = models.CharField(max_length=10)
     numero_compartimentos = models.IntegerField()
+    numeroEquipamento = models.CharField(max_length=30)
     
     def __str__(self):
         return self.placa
@@ -36,6 +37,7 @@ class Equipamento(models.Model):
     calibracao = models.DateField()
     numero_serie = models.CharField(max_length=100)
     patrimonio = models.CharField(max_length=5)
+   
 
 class Finalidade(models.Model):
     finalidade_choices = (('1','Inspeção'),('2','Manutenção'),('3','Reparo'),('4','Reforma'),('5','Verificao metrológica'))

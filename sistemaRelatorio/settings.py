@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'bootstrapform',
     'user',
     'relatorio',
+    'dbbackup',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ WSGI_APPLICATION = 'sistemaRelatorio.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -98,7 +99,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-'''
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -155,3 +155,6 @@ LOGIN_URL = '/login'
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
+
+DBBACKUP_STORAGE = 'django.core.files.storage.FileSystemStorage' #o que salvar
+DBBACKUP_STORAGE_OPTIONS = {'location': 'backups/'} # onde salvar

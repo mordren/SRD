@@ -24,11 +24,13 @@
                         {% endfor %}
                     </datalist>
                     <br/>               
+                    <input type="text" class="form-control" id="numeroEquipamento" name="numeroEquipamento" autocomplete="off" placeholder='Número Equipamento'><br/>
                     <input type="number" class="form-control" id="compartimento" name="compartimento" placeholder='Nº Compartimentos' value="{{ cliente.CNPJ }}"><br/>
                 </div>               
                 <div class='col-7'>
                     <input type="submit" class="btn btn-info" required="required" value="Próximo"/>
                 </div>
+                <br/>
             </form>            
         </div>
     </div>    

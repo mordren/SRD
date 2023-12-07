@@ -6,8 +6,6 @@ from reportlab.lib.pagesizes import A4
 from django.conf import settings
 from datetime import datetime
 from relatorio.models import DadosCompartimento, Equipamento, RelatorioDescontaminacao
-from user.models import UserProfile
-from textwrap import wrap
 
 
 def mp(mm):
@@ -31,9 +29,7 @@ def imprimirPDF(link, relatorio):
     canvas.drawString(mp(184),mp(241.5), str(relatorio.id))
     
     canvas.setFontSize(8)
-    
-    
-    
+      
     canvas.drawString(mp(49),mp(222.5), relatorio.veiculo.cliente.nome_completo)
     canvas.drawString(mp(50),mp(219.3), relatorio.veiculo.cliente.CNPJ)
     canvas.drawString(mp(44),mp(215.6), str(relatorio.get_tipo_equipamento_display()))
@@ -107,6 +103,31 @@ def imprimirPDF(link, relatorio):
     
     canvas.drawString(mp(39),mp(32.2), datetime.strftime(relatorio.data, "%d/%m/%Y"))
     canvas.showPage()
+    
+    template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(1)
+    template_obj = pagexobj(template)
+
+    canvas.setFontSize(8)
+    
+    canvas.setPageSize(A4)
+
+    xobj_name = makerl(canvas, template_obj)
+    canvas.doForm(xobj_name)
+    
+    canvas.drawString(mp(20),mp(241), relatorio.veiculo.cliente.nome_completo)
+    canvas.drawString(mp(20),mp(233), relatorio.veiculo.numeroEquipamento)    
+    canvas.drawString(mp(20),mp(225), relatorio.get_tipo_equipamento_display())   
+    canvas.drawString(mp(99),mp(225), relatorio.veiculo.placa)
+    
+    canvas.drawString(mp(22),mp(211.5), 'X')
+    
+    canvas.setFontSize(14)
+    canvas.drawString(mp(24.4),mp(88.2), str(relatorio.pk))
+    
+    canvas.setFontSize(12)
+    
+    canvas.drawString(mp(17), mp(45), 'Palmas, '+datetime.strftime(relatorio.data, "%d/%m/%Y"))
+    
     canvas.save()
     return canvas
        

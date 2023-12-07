@@ -3,8 +3,6 @@
 {% load bootstrap %}
 {% load static %}
 
-
-
 {% block title %}Cadastrar Relatório{% endblock%}
 
 {% block main %}    
@@ -18,6 +16,8 @@
                 <h3>Descontaminação Nº {{ id }}</h3>
                     {% csrf_token %}
                     <h5>Veículo placa: {{ veiculo.placa }}</h5>
+                    <label>Placaasdasdasdasd:</label>
+                    <input type="text" value="{{ veiculo.placa }}" name="placa" /><br/>
                     <label>Finalidade da Descontaminacao:</label><br/>
                     <ul>
                         {% for tipo in tipo_descontaminacao %}   
