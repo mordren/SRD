@@ -12,14 +12,81 @@ def mp(mm):
     return mm/0.352777
 
 def imprimirPDF(link, relatorio):    
+    #tive que mudar a sequência das páginas
     relatorio = RelatorioDescontaminacao.objects.get(id=relatorio.id)
     media_url = settings.MEDIA_ROOT
-    template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(0)
-
-    template_obj = pagexobj(template)
+    
     
     canvas = Canvas(link)
     canvas.setPageSize(A4)
+    
+    template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(0)
+    template_obj = pagexobj(template)
+
+    canvas.setFontSize(8)
+    
+    canvas.setPageSize(A4)
+
+    xobj_name = makerl(canvas, template_obj)
+    canvas.doForm(xobj_name)
+    
+    canvas.drawString(mp(20),mp(241), relatorio.veiculo.cliente.nome_completo)
+    canvas.drawString(mp(20),mp(233), relatorio.veiculo.numeroEquipamento)    
+    canvas.drawString(mp(20),mp(225), relatorio.get_tipo_equipamento_display())   
+    canvas.drawString(mp(99),mp(225), relatorio.veiculo.placa)
+    
+    canvas.drawString(mp(22),mp(211.5), 'X')
+    
+    canvas.setFontSize(14)
+    canvas.drawString(mp(24.4),mp(88.2), str(relatorio.pk))
+    
+    canvas.setFontSize(12)
+    
+    canvas.drawString(mp(17), mp(45), 'Palmas, '+datetime.strftime(relatorio.data, "%d/%m/%Y"))
+    
+    canvas.showPage()
+    
+    template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(1)
+    template_obj = pagexobj(template)
+    
+    xobj_name = makerl(canvas, template_obj)
+    canvas.doForm(xobj_name)
+    
+    canvas.setFontSize(10)
+    
+    canvas.setPageSize(A4)
+    
+    finalidades = relatorio.finalidade_descontaminacao.all()
+
+    canvas.drawString(mp(20),mp(233), relatorio.veiculo.placa)
+    canvas.drawString(mp(99),mp(233), str(relatorio.pk))
+    canvas.drawString(mp(20),mp(225), relatorio.veiculo.numeroEquipamento)
+    
+    canvas.setFontSize(12)
+    
+    ponto = 198
+    
+    for finalidade in finalidades:             
+        if(finalidade.finalidade == "1"):
+            canvas.drawString(mp(33),mp(197.3), "X")
+        elif(finalidade.finalidade == "2"):
+            canvas.drawString(mp(67),mp(197.3), "X")
+        elif(finalidade.finalidade == "3"):
+            canvas.drawString(mp(102),mp(197.3), "X")
+        elif(finalidade.finalidade == "4"):
+            canvas.drawString(mp(136),mp(197.3), "X")
+        elif(finalidade.finalidade == "5"):
+            canvas.drawString(mp(170.5),mp(197.3), "X")
+
+    canvas.drawString(mp(25), mp(71), 'Porto Nacional, '+datetime.strftime(relatorio.data, "%d/%m/%Y"))
+    canvas.showPage()
+    
+    
+    
+      
+    template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(2)
+
+    template_obj = pagexobj(template)
     
     xobj_name = makerl(canvas, template_obj)
     canvas.doForm(xobj_name)
@@ -35,7 +102,7 @@ def imprimirPDF(link, relatorio):
     canvas.drawString(mp(44),mp(215.6), str(relatorio.get_tipo_equipamento_display()))
     canvas.drawString(mp(80),mp(212.5), relatorio.veiculo.placa)
     
-    finalidades = relatorio.finalidade_descontaminacao.all()
+   
     
     for finalidade in finalidades:             
         if(finalidade.finalidade == "1"):
@@ -103,63 +170,6 @@ def imprimirPDF(link, relatorio):
     canvas.drawString(mp(39),mp(32.2), datetime.strftime(relatorio.data, "%d/%m/%Y"))
     
     canvas.showPage()
-    template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(1)
-    template_obj = pagexobj(template)
-
-    canvas.setFontSize(8)
-    
-    canvas.setPageSize(A4)
-
-    xobj_name = makerl(canvas, template_obj)
-    canvas.doForm(xobj_name)
-    
-    canvas.drawString(mp(20),mp(241), relatorio.veiculo.cliente.nome_completo)
-    canvas.drawString(mp(20),mp(233), relatorio.veiculo.numeroEquipamento)    
-    canvas.drawString(mp(20),mp(225), relatorio.get_tipo_equipamento_display())   
-    canvas.drawString(mp(99),mp(225), relatorio.veiculo.placa)
-    
-    canvas.drawString(mp(22),mp(211.5), 'X')
-    
-    canvas.setFontSize(14)
-    canvas.drawString(mp(24.4),mp(88.2), str(relatorio.pk))
-    
-    canvas.setFontSize(12)
-    
-    canvas.drawString(mp(17), mp(45), 'Palmas, '+datetime.strftime(relatorio.data, "%d/%m/%Y"))
-    
-    canvas.showPage()
-    template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(2)
-    template_obj = pagexobj(template)
-
-    canvas.setFontSize(10)
-    
-    canvas.setPageSize(A4)
-
-    xobj_name = makerl(canvas, template_obj)
-    canvas.doForm(xobj_name)
-    
-    canvas.drawString(mp(20),mp(233), relatorio.veiculo.placa)
-    canvas.drawString(mp(99),mp(233), str(relatorio.pk))
-    canvas.drawString(mp(20),mp(225), relatorio.veiculo.numeroEquipamento)
-    
-    canvas.setFontSize(12)
-    
-    ponto = 198
-    
-    for finalidade in finalidades:             
-        if(finalidade.finalidade == "1"):
-            canvas.drawString(mp(33),mp(197.3), "X")
-        elif(finalidade.finalidade == "2"):
-            canvas.drawString(mp(67),mp(197.3), "X")
-        elif(finalidade.finalidade == "3"):
-            canvas.drawString(mp(102),mp(197.3), "X")
-        elif(finalidade.finalidade == "4"):
-            canvas.drawString(mp(136),mp(197.3), "X")
-        elif(finalidade.finalidade == "5"):
-            canvas.drawString(mp(170.5),mp(197.3), "X")
-
-    canvas.drawString(mp(25), mp(71), 'Palmas, '+datetime.strftime(relatorio.data, "%d/%m/%Y"))
- 
     canvas.save()
     return canvas
        
