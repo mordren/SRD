@@ -37,8 +37,7 @@ def imprimirPDF(link, relatorio):
     
     finalidades = relatorio.finalidade_descontaminacao.all()
     
-    for finalidade in finalidades:       
-      
+    for finalidade in finalidades:             
         if(finalidade.finalidade == "1"):
             canvas.drawString(mp(35),mp(199.5), "X")
         elif(finalidade.finalidade == "2"):
@@ -102,8 +101,8 @@ def imprimirPDF(link, relatorio):
 
     
     canvas.drawString(mp(39),mp(32.2), datetime.strftime(relatorio.data, "%d/%m/%Y"))
-    canvas.showPage()
     
+    canvas.showPage()
     template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(1)
     template_obj = pagexobj(template)
 
@@ -128,6 +127,39 @@ def imprimirPDF(link, relatorio):
     
     canvas.drawString(mp(17), mp(45), 'Palmas, '+datetime.strftime(relatorio.data, "%d/%m/%Y"))
     
+    canvas.showPage()
+    template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(2)
+    template_obj = pagexobj(template)
+
+    canvas.setFontSize(10)
+    
+    canvas.setPageSize(A4)
+
+    xobj_name = makerl(canvas, template_obj)
+    canvas.doForm(xobj_name)
+    
+    canvas.drawString(mp(20),mp(233), relatorio.veiculo.placa)
+    canvas.drawString(mp(99),mp(233), str(relatorio.pk))
+    canvas.drawString(mp(20),mp(225), relatorio.veiculo.numeroEquipamento)
+    
+    canvas.setFontSize(12)
+    
+    ponto = 198
+    
+    for finalidade in finalidades:             
+        if(finalidade.finalidade == "1"):
+            canvas.drawString(mp(33),mp(197.3), "X")
+        elif(finalidade.finalidade == "2"):
+            canvas.drawString(mp(67),mp(197.3), "X")
+        elif(finalidade.finalidade == "3"):
+            canvas.drawString(mp(102),mp(197.3), "X")
+        elif(finalidade.finalidade == "4"):
+            canvas.drawString(mp(136),mp(197.3), "X")
+        elif(finalidade.finalidade == "5"):
+            canvas.drawString(mp(170.5),mp(197.3), "X")
+
+    canvas.drawString(mp(25), mp(71), 'Palmas, '+datetime.strftime(relatorio.data, "%d/%m/%Y"))
+ 
     canvas.save()
     return canvas
        
