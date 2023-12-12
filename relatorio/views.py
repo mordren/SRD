@@ -15,7 +15,7 @@ class relatorioView(View):
         data['tipo_descontaminacao'] =  RelatorioDescontaminacao.descontaminacao_choices
         data['processo_descontaminacao']  = RelatorioDescontaminacao.processo_descontaminacao_choices
         data['tipo_equipamento']  = RelatorioDescontaminacao.tipo_equipamento_choices
-        data['id'] = id  
+        data['id'] = id
         data['veiculo'] = RelatorioDescontaminacao.objects.filter(id=id).first().veiculo
         data['produtos'] = ProdutoTransportado.objects.all()
         data['relatorio'] = RelatorioDescontaminacao.objects.get(id=id)

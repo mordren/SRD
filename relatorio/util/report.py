@@ -88,7 +88,7 @@ def imprimirPDF(link, relatorio):
         linha = mp(157)
         coluna = coluna + mp(20.5)           
 
-    equipamento = Equipamento.objects.filter().first()
+    equipamento = relatorio.veiculo.numeroEquipamento
     
     canvas.drawString(mp(61.5),mp(111.2), equipamento.numero_serie)
     canvas.drawString(mp(138),mp(111.2), datetime.strftime(equipamento.calibracao, "%d/%m/%Y"))

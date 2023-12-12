@@ -35,7 +35,6 @@ class Veiculo(models.Model):
 class Equipamento(models.Model):
     nome = models.CharField(max_length=200)
     calibracao = models.DateField()
-    numero_serie = models.CharField(max_length=100)
     patrimonio = models.CharField(max_length=5)
    
 
