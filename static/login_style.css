@@ -87,9 +87,13 @@
     .container .info span .fa {
     color: #EF3B3A;
     }
+
+    .titulo_banner{
+        color: #FFFFFF;
+    }
 body {    
-    background-color: #86eff9;
-    background: linear-gradient(90deg, #55cbec 0%, #17a2b8 50%);
+    background-color: #ffffff;
+    background: linear-gradient(90deg, #bbebf8 0%, #5bb0bd 50%);
     font-family: "Roboto", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;      

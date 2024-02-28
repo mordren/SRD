@@ -136,7 +136,7 @@ def home(request):
 
 def listarRelatorio(request):
     data = {}
-    data['relatorios'] = RelatorioDescontaminacao.objects.all()
+    data['relatorios'] = RelatorioDescontaminacao.objects.all().order_by('id')
     return render(request, 'relatorio/listarRelatorio.html', data)
 
 def delRelatorio(request, id):
