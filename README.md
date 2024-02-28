@@ -1,20 +1,3 @@
-Nome do Projeto
-Uma breve descrição do que o projeto faz e qual problema ele resolve. Por exemplo: ""
-
-Funcionalidades
-
- 
-Tecnologias Utilizadas
-
-
-Como Começar
-Descreva os pré-requisitos para configurar o ambiente de desenvolvimento e como instalar o projeto localmente. Por exemplo:
-
-Pré-requisitos
-Python 3.x
-Django 3.x
-ReportLab
-
 <html>
     <h1>SRD</h1>
     <h2>Sistema de Relatórios de Descontaminação</h2>
