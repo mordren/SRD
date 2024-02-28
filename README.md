@@ -15,7 +15,7 @@ Python 3.x
 Django 3.x
 ReportLab
 
-
+<html>
     <h1>SRD - Sistema de Relatórios de Descontaminação</h1>
     <h2>Subtítulo</h2>
     <p>Este é um exemplo de <strong>texto em negrito</strong> e <em>texto em itálico</em>.</p>
@@ -26,5 +26,4 @@ ReportLab
         <li>Funcionalidade 3</li>
     </ul>
     <h4>Código de Exemplo</h4>
-    dy>
-
+</html>
