@@ -16,15 +16,7 @@ Django 3.x
 ReportLab
 
 
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Título do Projeto</title>
-</head>
-<body>
-    <h1>Título do Projeto</h1>
+    <h1>SRD - Sistema de Relatórios de Descontaminação</h1>
     <h2>Subtítulo</h2>
     <p>Este é um exemplo de <strong>texto em negrito</strong> e <em>texto em itálico</em>.</p>
     <h3>Lista de Funcionalidades</h3>
@@ -34,7 +26,5 @@ ReportLab
         <li>Funcionalidade 3</li>
     </ul>
     <h4>Código de Exemplo</h4>
-    <pre><code>print("Hello, World!")</code></pre>
-    <p>Para mais informações, visite <a href="https://example.com">Nosso Site</a>.</p>
-</body>
-</html>
+    dy>
+
