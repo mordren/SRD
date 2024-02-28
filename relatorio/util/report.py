@@ -81,9 +81,6 @@ def imprimirPDF(link, relatorio):
     canvas.drawString(mp(25), mp(71), 'Porto Nacional, '+datetime.strftime(relatorio.data, "%d/%m/%Y"))
     canvas.showPage()
     
-    
-    
-      
     template = PdfReader(media_url+"/templates/template.pdf", decompress=False).getPage(2)
 
     template_obj = pagexobj(template)
@@ -171,5 +168,4 @@ def imprimirPDF(link, relatorio):
     
     canvas.showPage()
     canvas.save()
-    return canvas
-       
+    return canvas       
