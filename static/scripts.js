@@ -22,7 +22,7 @@ $(document).ready(function(){
 });
 
 function updateVolume(num_comp){    
-    volume = parseInt($('#volume'+num_comp).val())
+    volume = parseFloat($('#volume'+num_comp).val())
     $('#tempo'+num_comp).val(volume*12)
     $('#volumeAr'+num_comp).val(volume*168)
 }
