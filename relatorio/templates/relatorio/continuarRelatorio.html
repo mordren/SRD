@@ -16,7 +16,7 @@
                 </div>   
                 <br/>
                 <div class='col-7'>
-                    <input type="text" class="form-control" id="CNPJ" name="CNPJ" placeholder='CNPJ' value="{{ cliente.CNPJ }}"><br/>
+                    <input type="text" class="form-control" id="CNPJ" name="CNPJ" placeholder='Documento' value="{{ cliente.documento }}"><br/>
                     <input type="text" class="form-control" id="placa" name="placa" list="placas" autocomplete="off" placeholder='Placa Veículo'>
                     <datalist id="placas">
                         {% for veiculo in veiculos %}
@@ -24,7 +24,7 @@
                         {% endfor %}
                     </datalist>
                     <br/>               
-                    <input type="text" class="form-control" id="numeroEquipamento" name="numeroEquipamento" autocomplete="off" placeholder='Número Equipamento'><br/>
+                    <input type="text" class="form-control" id="numeroEquipamento" name="numeroEquipamento" autocomplete="off" placeholder='Número Equipamento' value="{{ veiculo.numeroEquipamento }}"><br/>
                     <input type="number" class="form-control" id="compartimento" name="compartimento" placeholder='Nº Compartimentos' value="{{ cliente.CNPJ }}"><br/>
                 </div>               
                 <div class='col-7'>

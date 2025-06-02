@@ -6,9 +6,7 @@ from django.core.validators import MaxValueValidator
 class Cliente(models.Model):
     nome_completo = models.CharField(max_length=200)
     proprietario = models.CharField(max_length=200)
-    CNPJ = models.CharField(max_length=20, null=True, blank=True)
-    CPF = models.CharField(max_length=20, null=True, blank=True)
-    RG = models.CharField(max_length=20, null=True, blank=True)
+    documento = models.CharField(max_length=20, null=True, blank=True)    
     whatsapp = models.PositiveBigIntegerField(validators=[MaxValueValidator(99999999999)],
                 help_text="DD-9XXXX XXXX sem os espaços",
                 unique=True, null=True, blank=True)
@@ -82,4 +80,4 @@ class DadosCompartimento(models.Model):
     relatorio = models.ForeignKey(RelatorioDescontaminacao, on_delete=models.CASCADE)
     
     def __str__(self):
-        return 'Relatório : '+ str(self.relatorio.pk) + ' volume: '+ str(self.numero_compartimento) 
+        return 'Relatório : '+ str(self.relatorio.pk) + ' volume: '+ str(self.numero_compartimento)

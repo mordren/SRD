@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Listar Relatórios{% endblock%}
+
+{% block main %}    
+<style>
+    /* Estilização simples para a tabela e navegação */
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin: 20px 0;
+    }
+    .pagination a, .pagination span {
+        margin: 0 5px;
+        padding: 8px 12px;
+        border: 1px solid #ddd;
+        color: #333;
+        text-decoration: none;
+    }
+    .pagination .active {
+        font-weight: bold;
+        color: white;
+        background-color: #333;
+    }
+    .pagination .disabled {
+        color: #aaa;
+    }
+</style>
+
+    <h1>Relatório</h1>
+    <table border="1" width="100%" class="table text-center table-striped">
+        <tr>
+            <th scope="col">Nº Relatório</th>                      
+            <th scope="col">Data</th>
+            <th scope="col">Placa</th>                      
+            <th scope="col">Editar</th>                      
+            <th scope="col">Excluir</th>                      
+            <th scope="col">Imprimir</th>   
+        </tr>
+        
+        {% for relatorio in page_obj %}
+        <tr>
+            <th scope="row">{{ relatorio.id }}</th>                    
+            <td>{{relatorio.data|date:"d/m/y"}}</td>
+            <td>{{relatorio.veiculo.placa }}</td>
+            <td><a href="{% url 'relatorio-view' relatorio.id %}">
+                  <i class="fas fa-sync personal_icons"></i>         
+                </a>
+            </td>           
+            <td><a href="{% url 'delRelatorio-view' relatorio.id %}"
+              onclick="return confirm('Você tem certeza que quer deletar ?')">
+              <i class="fa-solid fa-trash delete-icon"></i></td>
+            <td><a href="{% url 'imprimir' relatorio.id %}"><i class="fa-solid fa-print personal_icons"></i></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <!-- Controles de Navegação -->
+    <div class="pagination">
+        <!-- Link para a primeira página -->
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; Primeira</a>
+        {% else %}
+            <span class="disabled">&laquo; Primeira</span>
+        {% endif %}
+
+        <!-- Link para a página anterior -->
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">Anterior</a>
+        {% else %}
+            <span class="disabled">Anterior</span>
+        {% endif %}
+
+        <!-- Links para as páginas individuais -->
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span class="active">{{ num }}</span>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <a href="?page={{ num }}">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        <!-- Link para a próxima página -->
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Próxima</a>
+        {% else %}
+            <span class="disabled">Próxima</span>
+        {% endif %}
+
+        <!-- Link para a última página -->
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.paginator.num_pages }}">Última &raquo;</a>
+        {% else %}
+            <span class="disabled">Última &raquo;</span>
+        {% endif %}
+    </div>
+{% endblock %}

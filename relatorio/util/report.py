@@ -95,11 +95,9 @@ def imprimirPDF(link, relatorio):
     canvas.setFontSize(8)
       
     canvas.drawString(mp(49),mp(222.5), relatorio.veiculo.cliente.nome_completo)
-    canvas.drawString(mp(50),mp(219.3), relatorio.veiculo.cliente.CNPJ)
+    canvas.drawString(mp(50),mp(219.3), relatorio.veiculo.cliente.documento)
     canvas.drawString(mp(44),mp(215.6), str(relatorio.get_tipo_equipamento_display()))
     canvas.drawString(mp(80),mp(212.5), relatorio.veiculo.placa)
-    
-   
     
     for finalidade in finalidades:             
         if(finalidade.finalidade == "1"):
@@ -129,6 +127,8 @@ def imprimirPDF(link, relatorio):
     elif(relatorio.processo_descontaminacao == "5"):
         canvas.drawString(mp(21.5),mp(169.4), "X")
     elif(relatorio.processo_descontaminacao == "6"):
+        canvas.drawString(mp(21.5),mp(166), "X")
+    elif(relatorio.processo_descontaminacao == "7"):
         canvas.drawString(mp(21.5),mp(166), "X")
     
     compartimentos = DadosCompartimento.objects.filter(relatorio=relatorio)
@@ -168,4 +168,4 @@ def imprimirPDF(link, relatorio):
     
     canvas.showPage()
     canvas.save()
-    return canvas       
+    return canvas

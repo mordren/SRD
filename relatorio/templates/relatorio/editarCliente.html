@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load bootstrap %}
+{% load static %}
+
+{% block title %}Editar Cliente{% endblock%}
+
+{% block main %}    
+<!-- <script src="{% static 'scripts_relatorio.js' %}"></script> -->
+    <br/>
+    <form action="" name="formCliente" method="post"  enctype="multipart/form-data">
+    <div class="content">
+        <div class="row">
+           <div class="col-12">
+                <input hidden class="hidden" id="{{ id }}">
+                <h3>Cliente Nº {{ cliente.id }}</h3>
+                    {% csrf_token %}
+                    <div class="row">
+                        <label for="nome" class="form-label">Nome/Razão Social</label>
+                        <input type="text" class="form-control" name="nome" id="nome"
+                            value="{{ cliente.nome_completo }}" required />
+                    </div>
+                    <div class="row">
+                        <label for="cnpj" class="form-label">CNPJ/CPF</label>
+                        <input type="text" class="form-control" name="cnpj" 
+                           id="cnpj" value="{{ cliente.documento }}" required />
+                    </div>
+                    <br/>
+                    <div class="row">
+                        <table class="table text-center table-striped">
+                            <thead>
+                                <tr>
+                                  <th scope="col">Placa</th>                      
+                                  <th scope="col">Compartimentos</th>
+                                  <th scope="col">Editar</th>                      
+                                </tr>
+                              </thead>
+                              <tbody>
+                              {% for veiculo in veiculos %} 
+                              <tr>
+                                <th scope="row">{{ veiculo.placa }}</th>                    
+                                <td>{{veiculo.numero_compartimentos}}</td>
+                                <td><a href="{% url 'editCliente-view' cliente.id %}"><i class="fas fa-sync personal_icons"></i></a></td>
+                              </tr>                  
+                              {% endfor %}
+                            </tbody>
+                          </table>       
+                    </div>
+
+            </div>
+        </div>        
+        <br/>
+        <input type="submit" class="btn btn-info" required="required" value="Salvar"/>
+    </div>
+    </form>
+{% endblock %}

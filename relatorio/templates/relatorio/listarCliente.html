@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load bootstrap %}
+
+{% block title %}Listar Clientes{% endblock%}
+
+{% block main %}    
+<div class="row">
+    <div class="col-12">
+      <div class="table-title col-12">
+        <div class="row">
+            <div class="col-6">
+                <h2>Análises de <b>Processos</b></h2>
+            </div>
+            <div class="col-6">
+                <a href="">
+                <button class="btn btn-new">
+                    <i class="fa fa-plus"></i> Novo
+                </button>
+                </a>
+            </div>
+        </div>
+    </div>          
+      <table class="table text-center table-striped">
+          <thead>
+              <tr>
+                <th scope="col">Cliente</th>                      
+                <th scope="col">Proprietário</th>
+                <th scope="col">CNPJ/CPF</th>    
+                <th scope="col">Editar</th>                      
+              </tr>
+            </thead>
+            <tbody>
+            {% for cliente in clientes %} 
+            <tr>
+              <th scope="row">{{ cliente.nome_completo }}</th>                    
+              <td>{{cliente.proprietario}}</td>
+              <td>{{ cliente.documento }}</td>
+              <td><a href="{% url 'editCliente-view' cliente.id %}"><i class="fas fa-sync personal_icons"></i></a></td>
+            </tr>                  
+            {% endfor %}
+          </tbody>
+        </table>       
+  </div>
+</div>
+{% endblock %}

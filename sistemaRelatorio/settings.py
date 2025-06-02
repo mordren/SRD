@@ -81,14 +81,14 @@ WSGI_APPLICATION = 'sistemaRelatorio.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-'''
+''' 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'aadfaydn',
-        'USER': 'aadfaydn',
-        'PASSWORD': 'K8Svu7_yI3YGYtn0vZplCrXCx9y3IG71',
-        'HOST' : 'motty.db.elephantsql.com'        
+        'NAME': 'relatorio',
+        'USER': 'root',
+        'PASSWORD': 'root1234',
+        'HOST' : '193.203.183.171'        
     }
 }
 
@@ -99,6 +99,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

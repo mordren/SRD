@@ -10,13 +10,24 @@ $(function() {
         var my_id = $(this).data('id')        
         $('#semana_hidden').val(my_id);
     });
+
+    $('#placa').on('focusout', function() {
+        let placa = $(this).val();
+        $.getJSON('/buscarVeiculo/' + placa + '/', function(data) {
+            $('#numeroEquipamento').val(data.numeroEquipamento);
+            alert('foi');
+            $('#compartimento').val(data.qtd_compartimentos);
+            $('#CNPJ').val(data.documento);
+        });
+    });
 });
 
 $(document).ready(function(){
     $('#placa').on('focusout', function(){
         placa = $('#placa').val()
         $.getJSON('../buscarComp/'+placa, function(data){
-            $('#compartimento').val(data['num'])
+            $('#compartimento').val(data['qtd_compartimentos']);
+            $('#numeroEquipamento').val(data['numeroEquipamento']);
         });        
     });
 });
@@ -34,3 +45,4 @@ function updateONU(num_comp){
         })
     })
 }
+

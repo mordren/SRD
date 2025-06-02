@@ -7,6 +7,7 @@ from relatorio.models import Cliente, DadosCompartimento, Finalidade, ProdutoTra
 from django.forms import model_to_dict
 from relatorio.util.report import imprimirPDF
 from django.http import FileResponse
+from django.core.paginator import Paginator
 
 #manipula a URL: localhost/relatorio/id
 class relatorioView(View):
@@ -86,18 +87,19 @@ class CriarRelatorio(View):
         cliente = Cliente.objects.filter(nome_completo=request.POST.get('cliente')).first()
         #veiculo = Viculo.objects.create(placa=placa, cliente=cliente, numero_compartimentos=compatimentos)       
         if cliente == None:           
-            cliente = Cliente.objects.create(nome_completo=request.POST.get('cliente'),CNPJ='')
+            cliente = Cliente.objects.create(nome_completo=request.POST.get('cliente'))
         return redirect('atualizarRelatorio-view', cliente.pk)
        
 class atualizarRelatorio(View):
     def get(self, request, id):
         cliente = Cliente.objects.get(id=id)
+        print(cliente.documento)
         veiculos = Veiculo.objects.filter(cliente=cliente)
         return render(request, 'relatorio/continuarRelatorio.html', {'veiculos':veiculos, 'cliente':cliente})
     
     def post(self, request, id):
         CNPJ = request.POST.get('CNPJ')
-        Cliente.objects.filter(id=id).update(CNPJ=CNPJ)
+        Cliente.objects.filter(id=id).update(documento=CNPJ)
         cliente = Cliente.objects.get(id=id)
         placa = request.POST.get('placa')            
         equipamento = request.POST.get('numeroEquipamento')            
@@ -117,8 +119,17 @@ def buscarClientes(request):
     return JsonResponse({'clientes':data})
 
 def buscarCompartimentos(request, placa):
-    numeroCompartimentos = Veiculo.objects.get(placa=placa)
-    return JsonResponse({'num':numeroCompartimentos.numero_compartimentos})
+    try:
+        veiculo = Veiculo.objects.get(placa=placa)
+        data = {
+            "placa": veiculo.placa,
+            "numeroEquipamento": veiculo.numeroEquipamento,
+            "qtd_compartimentos": veiculo.numero_compartimentos,
+            "documento": veiculo.cliente.documento if veiculo.cliente else "",           
+        }
+        return JsonResponse(data)
+    except Veiculo.DoesNotExist:
+        return JsonResponse({"erro": "Veículo não encontrado"}, status=404)
 
 def buscarRelatorio(request, id):
     relatorio = RelatorioDescontaminacao.objects.get(id=id)
@@ -152,3 +163,33 @@ def imprimir(request, id):
     imprimirPDF(buffer, relatorio)
     buffer.seek(0)
     return FileResponse(buffer, as_attachment=False, filename='teste.pdf')
+
+def listarCliente(request):
+    data = {}
+    data['clientes'] = Cliente.objects.all()
+    return render(request, 'relatorio/listarCliente.html', data)
+
+class editarCliente(View):
+    def get(self, request, id):
+        cliente = Cliente.objects.get(id=id)
+        veiculos = Veiculo.objects.filter(cliente=cliente)
+        return render(request, 'relatorio/editarCliente.html', {'veiculos':veiculos, 'cliente':cliente})
+    
+    def post(self, request, id):
+        CNPJ = request.POST.get('cnpj')
+        nome = request.POST.get('nome')
+        print(CNPJ)
+        Cliente.objects.filter(id=id).update(documento=CNPJ, nome_completo=nome)        
+        return redirect('home-view')
+
+def listarNovo(request):
+    report_data = RelatorioDescontaminacao.objects.all().order_by('-data')
+    
+    # Configura o paginator
+    paginator = Paginator(report_data, 50)  # Exibe 50 itens por página
+    
+    # Obtém o número da página a partir dos parâmetros GET   
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'relatorio/listar_cliente.html', {'page_obj': page_obj})
